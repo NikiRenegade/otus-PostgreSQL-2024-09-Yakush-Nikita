@@ -2,7 +2,7 @@
 ## Тема: Установка PostgreSQL
 
 1.  На личном ПК был установлен Docker согласно инструкции 
-[Установка Docker на Mac(https://docs.docker.com/desktop/install/mac-install/)
+[Установка Docker на Mac](https://docs.docker.com/desktop/install/mac-install/)
 2. Чтобы убедится в том, что контейнуры создаются успешно была выполнена команда: 
 ```CMD
 docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
