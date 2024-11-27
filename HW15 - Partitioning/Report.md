@@ -126,3 +126,4 @@ create table ticket_flights_part_economy_4 partition of ticket_flights_part_econ
 | bookings | ticket_flights_part_comfort   | 2304 kB     | 1160 kB     | 1144 kB     |
 | bookings | ticket_flights_part_business  | 14 MB       | 7184 kB     | 7040 kB     |
 
+P.S. Для получения полного дубликата, можно оригинальную таблицу ticket_flights удалить, а ticket_flights_part переименовать, а также переименовать все констреинты(ограничения) и сами секции.
