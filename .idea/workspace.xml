@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48e893af-1217-4b61-9583-f6ab625062b4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/HW13 - Indexes/Report.md" afterDir="false" />
+    <list default="true" id="48e893af-1217-4b61-9583-f6ab625062b4" name="Changes" comment="Добавлено PS к ДЗ по 15ой теме">
+      <change afterPath="$PROJECT_DIR$/HW18 - Storage Procedure/Report.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -32,6 +32,10 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/yakushnikita/Documents/Git/otus-PostgreSQL-2024-09-Yakush-Nikita",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
