@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48e893af-1217-4b61-9583-f6ab625062b4" name="Changes" comment="Добавлено PS к ДЗ по 15ой теме">
-      <change beforePath="$PROJECT_DIR$/HW06 - Setting PostgreSQL/Report.md" beforeDir="false" afterPath="$PROJECT_DIR$/HW06 - Setting PostgreSQL/Report.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HW13 - Indexes/Report.md" beforeDir="false" afterPath="$PROJECT_DIR$/HW13 - Indexes/Report.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HW23 - statistics (Join)/Report.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HW21-Replication/Report.md" beforeDir="false" afterPath="$PROJECT_DIR$/HW21 - Replication/Report.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,10 +17,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -62,6 +63,8 @@
       <workItem from="1732271708280" duration="13000" />
       <workItem from="1732271757446" duration="30000" />
       <workItem from="1734413817962" duration="7651000" />
+      <workItem from="1734860331637" duration="3430000" />
+      <workItem from="1735966922324" duration="7337000" />
     </task>
     <servers />
   </component>
