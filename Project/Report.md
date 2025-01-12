@@ -1,6 +1,7 @@
 # Развернутый отчет о проектной работе
 ## Реализация высоконагруженных и отказоустойчивых кластеров PostgreSQL на базе Patroni
-
+### <a id="Contents">Содержание</a>
+[Настройка DCS](#Dcs)    
 Для данной работы были использованы 5 ВМ созданных в ПО "Parallels Desctop"
 
 **Описание ВМ**
@@ -12,8 +13,9 @@
 | DebianReplicaSecond | Debian GNU/Linux 12  | 10.211.55.31 | admin                         |
 | DebianHaProxy       | Debian GNU/Linux 12  | 10.211.55.27 | admin                         |
 | DebianGrafana       | Debian GNU/Linux 12  | 10.211.55.28 | admin                         |
-
+### <a id="Dcs">Настройка DCS</a>
 ### Настройка DCS
+[Вернуться к содержанию](#Contents)  
 DCS – распределенная система хранения конфигурации,
 в которой реализован протокол консенсуса для достижения консистентности
 хранимых данных на всех узлах таковой системы.
@@ -45,7 +47,7 @@ sudo chmod 775 /var/lib/consul /etc/consul.d
 sudo nano  /etc/consul.d/config.json
 sudo nano /etc/systemd/system/consul.service
 ```
-P.S. Все файлы конфигурации
+P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/Configuration.md)
 
 5. Запуск Consul
 ```CMD
