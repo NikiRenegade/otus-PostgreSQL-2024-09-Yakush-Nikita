@@ -2,19 +2,22 @@
 ## Реализация высоконагруженных и отказоустойчивых кластеров PostgreSQL на базе Patroni
 ### <a id="con">Содержание</a>
 
-[Настройка DCS](#dcs)    
+1. [Настройка DCS](#dcs)  
+2. [Настройка PostgreSQL](#pos)
+3. [Настройка Potroni](#pat)
+4. [Настройка HAProxy](#hap)
 
 Для данной работы были использованы 5 ВМ созданных в ПО "Parallels Desctop"
 
 **Описание ВМ**
 
-| Название ОС         | Версия ОС            | ip ОС        | Пользователь для демонстрации |
-|---------------------|----------------------|--------------|-------------------------------|
-| DebianMaster        | Debian GNU/Linux 12  | 10.211.55.29 | admin                         |
-| DebianReplicaFirst  | Debian GNU/Linux 12  | 10.211.55.30 | admin                         |
-| DebianReplicaSecond | Debian GNU/Linux 12  | 10.211.55.31 | admin                         |
-| DebianHaProxy       | Debian GNU/Linux 12  | 10.211.55.27 | admin                         |
-| DebianGrafana       | Debian GNU/Linux 12  | 10.211.55.28 | admin                         |
+| Название ОС   | Версия ОС       | ip ОС        | Пользователь для демонстрации |
+|---------------|-----------------|--------------|-------------------------------|
+| ubuntu1       | Ubuntu 20.04.5  | 10.211.55.47 | administrator                 |
+| ubuntu2       | Ubuntu 20.04.5  | 10.211.55.48 | administrator                 |
+| ubuntu3       | Ubuntu 20.04.5  | 10.211.55.49 | administrator                 |
+| ubuntuhaproxy | Ubuntu 20.04.5  | 10.211.55.50 | administrator                 |
+| DebianGrafana | Ubuntu 20.04.5  | 10.211.55.28 | administrator                 |
 ### <a id="dcs">Настройка DCS</a>
 [Вернуться к содержанию](#con)  
 DCS – распределенная система хранения конфигурации,
@@ -34,17 +37,15 @@ unzip consul_1.14.3_linux_arm64.zip
 ```
 2. Перенос consul из папки tmp в /usr/bin/ и предоставление для файла права на исполнение на всех трех ВМ:
 ```CMD
-sudo mv /tmp/consul /usr/bin
-sudo chmod +x /usr/bin/consul
+sudo mv consul /usr/bin && sudo chmod +x /usr/bin/consul
 ```
 3. Создание каталогов для consul, назначение владельца и выдача прав на всех трех ВМ:
 ```CMD
-sudo mkdir -p /var/lib/consul /etc/consul.d
-sudo chown admin:admin /var/lib/consul /etc/consul.d
-sudo chmod 775 /var/lib/consul /etc/consul.d
+sudo mkdir -p /var/lib/consul /etc/consul.d && sudo chown administrator:administrator /var/lib/consul /etc/consul.d && sudo chmod 775 /var/lib/consul /etc/consul.d
 ```
-4. Создание конфигурационного файла  (json) и файла сервиса (service) consul для всех трех ВМ:
+4. Создание конфигурационного файла (json) и service файла Consul для всех трех ВМ:
 ```CMD
+consul keygen
 sudo nano  /etc/consul.d/config.json
 sudo nano /etc/systemd/system/consul.service
 ```
@@ -52,15 +53,12 @@ P.S. Все файлы конфигурации [можно найти здес�
 
 5. Запуск Consul
 ```CMD
-sudo systemctl daemon-reload
-sudo systemctl start consul
-sudo systemctl enable consul
+sudo systemctl daemon-reload && sudo systemctl enable consul && sudo systemctl start consul
 ```
 6. Проверка работоспособности Consul
 ```CMD
 sudo systemctl status consul        --Active и без ошибок
 consul members                      --Должно быть все 3 ноды
-consul operator raft list-peers     --Посмотреть лидера
 journalctl -u consul -f             --Просмотр журнала
 ```
 
@@ -72,3 +70,78 @@ P.S.
 что лидер не мог быть определен, а комманда consul operator raft list-peers
 приводила к ошибке.
 
+### <a id="pos">Настройка PostgreSQL 16</a>
+[Вернуться к содержанию](#con) 
+
+1. Добавление репозитория PostgreSQL на 3 ВМ:
+```CMD
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+```
+2. Добавление ключа GPG:
+```CMD
+curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+```
+3. Обновление список пакетов:
+```CMD
+sudo apt update
+```
+4. Установка PostgresSQL 16:
+```CMD
+sudo apt install postgresql-16 postgresql-contrib-16
+```
+5. Запуск PostgresSQL 16:
+```CMD
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+```
+
+### <a id="pat">Настройка Potroni</a>
+[Вернуться к содержанию](#con) 
+1. Удаление кластер postgres:
+```CMD
+sudo systemctl stop postgresql@16-main && sudo -u postgres pg_dropcluster 16 main
+```
+2. Установка Python 3, pip и Git:
+```CMD
+sudo apt install -y python3 python3-pip git 
+```
+3. Установка psycopg2-binary:
+```CMD
+sudo pip3 install psycopg2-binary
+```
+4. Установка Patroni с поддержкой Consul:
+```CMD
+sudo pip3 install patroni[consul]
+```
+5. Создание ссылки для Patroni:
+```CMD
+sudo ln -s /usr/local/bin/patroni /bin/patroni
+```
+6. Создание конфигурационного файла (yml) и service файла patroni для всех трех ВМ:
+```CMD
+sudo nano /etc/systemd/system/patroni.service
+sudo nano /etc/patroni.yml
+```
+P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/Configuration.md)
+7. Заупуск Patroni
+```CMD
+sudo systemctl enable patroni && sudo systemctl start patroni 
+```
+
+### <a id="hap">Настройка HAProxy</a>
+[Вернуться к содержанию](#con) 
+1. Установка HAProxy
+```CMD
+sudo systemctl enable patroni && sudo systemctl start patroni 
+```
+2. Открытие конфигурационного файла:
+```CMD
+sudo nano /etc/haproxy/haproxy.cfg
+```
+Суть была сделать так чтобы один порт - чтение, другой - запись
+P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/Configuration.md)
+3. Заупуск HAProxy
+```CMD
+sudo systemctl start haproxy
+sudo systemctl enable haproxy
+```
