@@ -4,8 +4,10 @@
 4. Рассказ про HAProxy
 
 5. Привести пример
+create database otus
+create schema otus
 https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/HW23%20-%20statistics%20(Join)/Report.md
-
+drop database otus
 
 
 
