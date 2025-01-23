@@ -48,7 +48,7 @@ consul keygen
 sudo nano  /etc/consul.d/config.json
 sudo nano /etc/systemd/system/consul.service
 ```
-P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/Configuration.md)
+P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/ConsulConfiguration.md)
 
 5. Запуск Consul
 ```CMD
@@ -121,7 +121,7 @@ sudo ln -s /usr/local/bin/patroni /bin/patroni
 sudo nano /etc/systemd/system/patroni.service
 sudo nano /etc/patroni.yml
 ```
-P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/Configuration.md)
+P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/PatroniConfiguration.md)
 7. Заупуск Patroni
 ```CMD
 sudo systemctl enable patroni && sudo systemctl start patroni 
@@ -138,7 +138,7 @@ sudo systemctl enable patroni && sudo systemctl start patroni
 sudo nano /etc/haproxy/haproxy.cfg
 ```
 Суть была сделать так чтобы один порт - чтение, другой - запись
-P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/Configuration.md)
+P.S. Все файлы конфигурации [можно найти здесь](https://github.com/NikiRenegade/otus-PostgreSQL-2024-09-Yakush-Nikita/blob/main/Project/HAProxyConfiguration.md)
 3. Заупуск HAProxy
 ```CMD
 sudo systemctl start haproxy
