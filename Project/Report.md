@@ -17,7 +17,6 @@
 | ubuntu2       | Ubuntu 20.04.5  | 10.211.55.48 | administrator                 |
 | ubuntu3       | Ubuntu 20.04.5  | 10.211.55.49 | administrator                 |
 | ubuntuhaproxy | Ubuntu 20.04.5  | 10.211.55.50 | administrator                 |
-| DebianGrafana | Ubuntu 20.04.5  | 10.211.55.28 | administrator                 |
 ### <a id="dcs">Настройка DCS</a>
 [Вернуться к содержанию](#con)  
 DCS – распределенная система хранения конфигурации,
